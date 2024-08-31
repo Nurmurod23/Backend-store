@@ -4,7 +4,6 @@ const Order = require('../models/Order');
 const auth = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
 
-// Create a new order
 router.post(
   '/',
   [
@@ -44,7 +43,6 @@ router.post(
   }
 );
 
-// Get all orders for the authenticated user
 router.get('/', auth, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user.id });
@@ -55,7 +53,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Get a specific order by ID
 router.get('/:id', auth, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -73,16 +70,15 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// Search orders
 router.get('/search', auth, async (req, res) => {
-  const { query } = req.query; // Get the search query from query params
+  const { query } = req.query; 
 
   if (!query) {
     return res.status(400).json({ msg: 'Search query is required' });
   }
 
   try {
-    // Perform a case-insensitive search on order items and shipping address
+
     const orders = await Order.find({
       user: req.user.id,
       $or: [

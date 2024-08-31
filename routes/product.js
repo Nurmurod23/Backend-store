@@ -6,7 +6,6 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const upload = require('../middleware/upload');
 
-// Get all products
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
@@ -17,15 +16,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Search products
 router.get('/search', async (req, res) => {
-  const { query } = req.query; // Get the search query from query params
+  const { query } = req.query; 
   if (!query) {
     return res.status(400).json({ msg: 'Search query is required' });
   }
 
   try {
-    // Perform a case-insensitive search on name and description fields
+
     const products = await Product.find({
       $or: [
         { name: { $regex: query, $options: 'i' } },
@@ -40,7 +38,6 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// Get product by ID
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -53,7 +50,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Add new product
 router.post(
   '/',
   [auth, admin, upload.single('image')],
@@ -72,7 +68,6 @@ router.post(
   }
 );
 
-// Like a product
 router.post('/like/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -95,7 +90,6 @@ router.post('/like/:id', auth, async (req, res) => {
   }
 });
 
-// Unlike a product
 router.post('/unlike/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -119,7 +113,6 @@ router.post('/unlike/:id', auth, async (req, res) => {
   }
 });
 
-// Delete a product
 router.delete('/:id', auth, admin, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);

@@ -6,7 +6,6 @@ const User = require('../models/User');
 const auth = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
 
-// Get Cart Details
 router.get('/', auth, async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user.id }).populate('items.product');
@@ -18,7 +17,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Add Item to Cart
 router.post(
   '/',
   [
@@ -64,7 +62,6 @@ router.post(
   }
 );
 
-// Update Cart Item Quantity
 router.put(
   '/:productId',
   [
@@ -98,7 +95,6 @@ router.put(
   }
 );
 
-// Remove Item from Cart
 router.delete('/:productId', auth, async (req, res) => {
   const { productId } = req.params;
 
@@ -116,7 +112,6 @@ router.delete('/:productId', auth, async (req, res) => {
   }
 });
 
-// Clear Cart
 router.delete('/', auth, async (req, res) => {
   try {
     const cart = await Cart.findOneAndDelete({ user: req.user.id });

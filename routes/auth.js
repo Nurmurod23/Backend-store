@@ -6,9 +6,8 @@ const User = require('../models/User');
 const Cart = require('../models/Cart');
 const auth = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
-const upload = require('../middleware/upload'); // Assuming you have an upload.js middleware for multer
+const upload = require('../middleware/upload'); 
 
-// Register a new user
 router.post(
   '/register',
   [
@@ -16,7 +15,7 @@ router.post(
     body('email').isEmail().withMessage('Invalid email address'),
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     body('isAdmin').optional().isBoolean().withMessage('Invalid admin status'),
-    body('avatarUrl').optional().isURL().withMessage('Invalid avatar URL') // Validate URL format
+    body('avatarUrl').optional().isURL().withMessage('Invalid avatar URL') 
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -56,7 +55,6 @@ router.post(
   }
 );
 
-// Login a user
 router.post(
   '/login',
   [
@@ -106,11 +104,10 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-// Update user's profile
 router.put(
   '/me',
   auth,
-  upload.single('avatar'), // Multer middleware for avatar upload
+  upload.single('avatar'), 
   [
     body('name').optional().notEmpty().withMessage('Name cannot be empty'),
     body('email').optional().isEmail().withMessage('Invalid email address'),
