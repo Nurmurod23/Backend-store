@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 const createAdmin = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/backend', {
+    await mongoose.connect('mongodb+srv://elow9020:zuyX6QNpuBTbfcIP@cluster0.zi74q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

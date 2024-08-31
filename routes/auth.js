@@ -92,7 +92,6 @@ router.post(
   }
 );
 
-// Get current user's profile
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password').populate('cart');
