@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const dbURI = 'mongodb+srv://elow9020:zuyX6QNpuBTbfcIP@cluster0.zi74q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; 
+    const dbURI = 'mongodb+srv://elow9020:zuyX6QNpuBTbfcIP@cluster0.zi74q.mongodb.net/backend-store?retryWrites=true&w=majority&appName=Cluster0'; 
     await mongoose.connect(dbURI);
 
     console.log('MongoDB Connected...');
